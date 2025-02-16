@@ -7,10 +7,21 @@ namespace App\Services;
 use App\Models\Vehicle;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Str;
 
 class StockService
 {
+    private array $availableScopes = [
+        'brand' => 'ofBrand',
+        'model' => 'ofModel',
+        'vin' => 'ofVin',
+        'price_from' => 'ofPriceFrom',
+        'price_to' => 'ofPriceTo',
+        'year_from' => 'ofYearFrom',
+        'year_to' => 'ofYearTo',
+        'mileage_from' => 'ofMileageFrom',
+        'mileage_to' => 'ofMileageTo',
+    ];
+
     public function getAll(array $filters, int $limit): LengthAwarePaginator
     {
         $query = Vehicle::query();
@@ -25,11 +36,10 @@ class StockService
 
     private function applyFilter(Builder $query, string $key, string|int|bool|null $value): void
     {
-        $convertedKey = Str::camel($key);
-        $scopeMethod = 'scope' . ucfirst($convertedKey);
+        if (array_key_exists($key, $this->availableScopes)) {
+            $scopeMethod = $this->availableScopes[$key];
 
-        if (method_exists(Vehicle::class, $scopeMethod)) {
-            $query->$convertedKey($value);
+            $query->$scopeMethod($value);
         }
     }
 }
