@@ -16,13 +16,10 @@ class VehicleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $vehicleModel = VehicleModel::find($this->vehicle_model_id);
-        $brand = Brand::find($vehicleModel->brand_id);
-
         return [
             'id' => $this->id,
-            'brand' => $brand->name,
-            'model' => $vehicleModel->name,
+            'brand' => $this->vehicleModel->brand->name,
+            'model' => $this->vehicleModel->name,
             'vin' => $this->vin,
             'price' => $this->price,
             'year' => $this->year,
