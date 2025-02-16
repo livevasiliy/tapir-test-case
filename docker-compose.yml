@@ -1,0 +1,64 @@
+services:
+    web:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: laravel_app
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/html
+        depends_on:
+            - database
+            - redis
+            - mailcatcher
+
+    nginx:
+        image: nginx:1.21-alpine
+        volumes:
+            - .:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/nginx.conf
+        ports:
+            -   target: 80
+                published: 8080
+                protocol: tcp
+        depends_on:
+            - web
+
+    database:
+        image: mysql:8.3.0
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_ROOT}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - target: 3306
+              published: 3306
+              protocol: tcp
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8081:8080
+
+    redis:
+        image: redis:7.2.4-alpine
+        restart: always
+        ports:
+            - target: 6379
+              published: 6379
+              protocol: tcp
+
+
+    mailcatcher:
+        image: dockage/mailcatcher:0.9.0
+        ports:
+            - target: 1080
+              published: 1080
+              protocol: tcp
+            - target: 1025
+              published: 1025
+              protocol: tcp
