@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Brand;
 use App\Models\Vehicle;
+use App\Models\VehicleModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class VehicleFactory extends Factory
@@ -13,7 +13,7 @@ class VehicleFactory extends Factory
     public function definition(): array
     {
         return [
-            'brand_id' => Brand::factory(),
+            'vehicle_model_id' => VehicleModel::factory(),
             'vin' => $this->faker->ean8(),
             'price' => $this->faker->randomNumber(),
             'year' => $this->faker->year(),

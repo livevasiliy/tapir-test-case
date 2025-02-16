@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RunImportVehicleAction;
+use App\Http\Controllers\StockAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,3 +10,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/import-vehicles', RunImportVehicleAction::class);
+Route::get('/stock', StockAction::class);
