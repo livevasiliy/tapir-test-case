@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Vehicle;
+use App\Models\VehicleModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,13 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+//        User::factory()->create([
+//            'name' => 'Test User',
+//            'email' => 'test@example.com',
+//        ]);
 
         Vehicle::factory(5)
-            ->for(Brand::factory())
+            ->for(VehicleModel::factory())
             ->create();
     }
 }

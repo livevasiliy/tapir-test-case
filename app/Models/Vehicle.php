@@ -26,53 +26,58 @@ class Vehicle extends Model
         'mileage' => 'integer',
     ];
 
-    public function scopeBrand(Builder $query, string $brand): Builder
+    protected $with = [
+        'vehicleModel',
+        'vehicleModel.brand',
+    ];
+
+    public function scopeOfBrand(Builder $query, string $brand): void
     {
-        return $query->whereHas('vehicleModel.brand', function (Builder $query) use ($brand) {
+        $query->whereHas('vehicleModel.brand', function (Builder $query) use ($brand) {
             $query->where('name', 'like', '%' . $brand . '%');
         });
     }
 
-    public function scopeModel(Builder $query, string $model): Builder
+    public function scopeOfModel(Builder $query, string $model): void
     {
-        return $query->whereHas('vehicleModel', function (Builder $query) use ($model) {
+        $query->whereHas('vehicleModel', function (Builder $query) use ($model) {
             $query->where('name', 'like', '%' . $model . '%');
         });
     }
 
-    public function scopeVin(Builder $query, string $vin): Builder
+    public function scopeOfVin(Builder $query, string $vin): void
     {
-        return $query->where('vin', 'like', '%' . $vin . '%');
+        $query->where('vin', 'like', '%' . $vin . '%');
     }
 
-    public function scopePriceFrom(Builder $query, int $priceFrom): Builder
+    public function scopeOfPriceFrom(Builder $query, int $priceFrom): void
     {
-        return $query->where('price', '>=', $priceFrom);
+        $query->where('price', '>=', $priceFrom);
     }
 
-    public function scopePriceTo(Builder $query, int $priceTo): Builder
+    public function scopeOfPriceTo(Builder $query, int $priceTo): void
     {
-        return $query->where('price', '<=', $priceTo);
+        $query->where('price', '<=', $priceTo);
     }
 
-    public function scopeYearFrom(Builder $query, int $yearFrom): Builder
+    public function scopeOfYearFrom(Builder $query, int $yearFrom): void
     {
-        return $query->where('year', '>=', $yearFrom);
+        $query->where('year', '>=', $yearFrom);
     }
 
-    public function scopeYearTo(Builder $query, int $yearTo): Builder
+    public function scopeOfYearTo(Builder $query, int $yearTo): void
     {
-        return $query->where('year', '<=', $yearTo);
+        $query->where('year', '<=', $yearTo);
     }
 
-    public function scopeMileageFrom(Builder $query, int $mileageFrom): Builder
+    public function scopeOfMileageFrom(Builder $query, int $mileageFrom): void
     {
-        return $query->where('mileage', '>=', $mileageFrom);
+        $query->where('mileage', '>=', $mileageFrom);
     }
 
-    public function scopeMileageTo(Builder $query, int $mileageTo): Builder
+    public function scopeOfMileageTo(Builder $query, int $mileageTo): void
     {
-        return $query->where('mileage', '<=', $mileageTo);
+        $query->where('mileage', '<=', $mileageTo);
     }
 
     public function vehicleModel(): BelongsTo
