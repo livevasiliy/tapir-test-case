@@ -14,7 +14,9 @@
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "orchid/platform": "^14.45"
+        "orchid/platform": "^14.45",
+        "predis/predis": "^2.3",
+        "propaganistas/laravel-phone": "^5.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

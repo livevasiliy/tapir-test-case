@@ -14,10 +14,10 @@ class VehicleFactory extends Factory
     {
         return [
             'vehicle_model_id' => VehicleModel::factory(),
-            'vin' => $this->faker->ean8(),
-            'price' => $this->faker->randomNumber(),
-            'year' => $this->faker->year(),
-            'mileage' => $this->faker->randomNumber(),
+            'vin' => fake()->ean8(),
+            'price' => fake()->randomNumber(),
+            'year' => fake()->year(),
+            'mileage' => fake()->randomNumber(),
         ];
     }
 }
