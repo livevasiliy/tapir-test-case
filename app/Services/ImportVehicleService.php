@@ -30,7 +30,7 @@ class ImportVehicleService
     private function importNewCars(): void
     {
         try {
-            $response = Http::get(config('import.import.new_car_url'));
+            $response = Http::get(config('tapir.import.new_car_url'));
             if (! $response->successful()) {
                 throw new Exception('Failed to fetch new cars data.');
             }
@@ -52,7 +52,7 @@ class ImportVehicleService
     private function importUsedCars(): void
     {
         try {
-            $response = Http::get(config('import.import.used_car_url'));
+            $response = Http::get(config('tapir.import.used_car_url'));
             if (! $response->successful()) {
                 throw new Exception('Failed to fetch used cars data.');
             }

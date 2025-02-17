@@ -14,7 +14,7 @@ class VehicleModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => fake()->word(),
             'brand_id' => Brand::factory(),
         ];
     }

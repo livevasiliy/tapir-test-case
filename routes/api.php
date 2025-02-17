@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateOrderAction;
 use App\Http\Controllers\RunImportVehicleAction;
 use App\Http\Controllers\StockAction;
 use Illuminate\Http\Request;
@@ -11,3 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/import-vehicles', RunImportVehicleAction::class);
 Route::get('/stock', StockAction::class);
+Route::post('/order', CreateOrderAction::class);
