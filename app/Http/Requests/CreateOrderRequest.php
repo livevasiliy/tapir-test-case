@@ -23,7 +23,7 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => ['required', 'string', new Phone()],
+            'phone' => ['required', 'string', new Phone],
             'vehicle_id' => ['required', 'exists:vehicles,id'],
         ];
     }

@@ -16,18 +16,17 @@ class UsedCar implements JsonSerializable
         public int $price,
         public int $year,
         public int $mileage
-    ) {
-    }
+    ) {}
 
     public static function fromXml(SimpleXMLElement $usedCarData): UsedCar
     {
         return new self(
-            (string)$usedCarData->brand,
-            (string)$usedCarData->model,
-            (string)$usedCarData->vin,
-            (int)$usedCarData->price,
-            (int)$usedCarData->year,
-            (int)$usedCarData->mileage
+            (string) $usedCarData->brand,
+            (string) $usedCarData->model,
+            (string) $usedCarData->vin,
+            (int) $usedCarData->price,
+            (int) $usedCarData->year,
+            (int) $usedCarData->mileage
         );
     }
 

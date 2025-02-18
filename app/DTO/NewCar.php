@@ -13,8 +13,7 @@ class NewCar implements JsonSerializable
         public string $model,
         public string $vin,
         public int $price
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $newCarData): NewCar
     {

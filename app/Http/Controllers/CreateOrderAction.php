@@ -21,12 +21,13 @@ class CreateOrderAction
             );
 
             return new JsonResponse([
-                'message' => sprintf('Order %s successfully created.', $order->id)
+                'message' => sprintf('Order %s successfully created.', $order->id),
             ], JsonResponse::HTTP_CREATED);
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
+
             return new JsonResponse([
-                'error' => 'Internal server error'
+                'error' => 'Internal server error',
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

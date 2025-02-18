@@ -17,15 +17,15 @@ class Order extends Model
     protected $fillable = [
         'phone',
         'vehicle_id',
-        'is_sent'
+        'is_sent',
     ];
 
     protected $with = [
-        'vehicle'
+        'vehicle',
     ];
 
     protected $casts = [
-        'is_sent' => 'boolean'
+        'is_sent' => 'boolean',
     ];
 
     public function vehicle(): BelongsTo

@@ -19,7 +19,7 @@ class CreateOrderActionTest extends TestCase
     {
         // Arrange
         $order = Order::factory()->make([
-            'phone' => '+79999999999'
+            'phone' => '+79999999999',
         ]);
 
         // Act
@@ -54,7 +54,7 @@ class CreateOrderActionTest extends TestCase
             'message' => 'The phone field must be a valid number.',
             'errors' => [
                 'phone' => ['The phone field must be a valid number.'],
-            ]
+            ],
         ], $response->json());
         $this->assertDatabaseMissing('orders', [
             'phone' => $phone,

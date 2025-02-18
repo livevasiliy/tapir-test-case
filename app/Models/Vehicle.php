@@ -35,20 +35,20 @@ class Vehicle extends Model
     public function scopeOfBrand(Builder $query, string $brand): void
     {
         $query->whereHas('vehicleModel.brand', function (Builder $query) use ($brand) {
-            $query->where('name', 'like', '%' . $brand . '%');
+            $query->where('name', 'like', '%'.$brand.'%');
         });
     }
 
     public function scopeOfModel(Builder $query, string $model): void
     {
         $query->whereHas('vehicleModel', function (Builder $query) use ($model) {
-            $query->where('name', 'like', '%' . $model . '%');
+            $query->where('name', 'like', '%'.$model.'%');
         });
     }
 
     public function scopeOfVin(Builder $query, string $vin): void
     {
-        $query->where('vin', 'like', '%' . $vin . '%');
+        $query->where('vin', 'like', '%'.$vin.'%');
     }
 
     public function scopeOfPriceFrom(Builder $query, int $priceFrom): void

@@ -90,7 +90,7 @@ class ImportVehicleService
             ]);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
-                throw new Exception('Duplicate entry found while creating vehicle with VIN: ' . $car->vin);
+                throw new Exception('Duplicate entry found while creating vehicle with VIN: '.$car->vin);
             }
             throw $e;
         } catch (Exception $e) {

@@ -18,10 +18,11 @@ class OrderService
         try {
             $order = Order::create([
                 'phone' => $phone,
-                'vehicle_id' => $vehicleId
+                'vehicle_id' => $vehicleId,
             ]);
 
             SendOrderToCrmJob::dispatch($order);
+
             return $order;
         } catch (Exception $exception) {
             throw new $exception;

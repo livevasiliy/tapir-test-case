@@ -15,7 +15,7 @@ class VehicleModel extends Model
 
     protected $fillable = [
         'name',
-        'brand_id'
+        'brand_id',
     ];
 
     public function brand(): BelongsTo
