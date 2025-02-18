@@ -7,13 +7,13 @@ namespace Tests\Unit\Services;
 use App\Jobs\SendOrderToCrmJob;
 use App\Models\Order;
 use App\Models\Vehicle;
+use App\Services\OrderService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
-use App\Services\OrderService;
 use Tests\TestCase;
 
 #[CoversClass(\App\Services\OrderService::class)]
@@ -42,7 +42,7 @@ class OrderServiceTest extends TestCase
         $vehicle = Vehicle::factory()->create();
         $phone = '+79999999999';
 
-        $orderService = new OrderService();
+        $orderService = new OrderService;
 
         // Act
         $order = $orderService->createOrder($phone, $vehicle->id);

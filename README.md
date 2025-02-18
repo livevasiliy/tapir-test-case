@@ -1,66 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Тестовое задание для компании Tapir
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Этот проект представляет собой веб-приложение для управления заявками, интегрированное с CRM. Основные функции включают создание заявок, их отправку в CRM, обработку неудачных отправок и возможность переотправки через административную панель, реализованную с использованием **Orchid**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Основные функции
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Создание заявок**:
+    - Пользователи могут создавать заявки, указывая телефон и ID автомобиля.
+    - Заявки автоматически отправляются в CRM.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Интеграция с CRM**:
+    - Заявки отправляются в CRM через фоновую задачу (`SendOrderToCrmJob`).
+    - В случае неудачной отправки заявка сохраняется для дальнейшего анализа.
 
-## Learning Laravel
+3. **Административная панель**:
+    - Реализована с использованием **Orchid**.
+    - Просмотр списка неудачных отправок.
+    - Возможность переотправки заявок в CRM.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. **Логирование ошибок**:
+    - Все неудачные попытки отправки заявок логируются с указанием ошибки.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Технологии
 
-## Laravel Sponsors
+- **PHP 8.x**
+- **Laravel 11.x**
+- **Orchid** (административная панель)
+- **MySQL** (база данных)
+- **Redis** (очереди)
+- **Docker** (контейнеризация)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Запуск проекта через Docker Compose
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Для запуска проекта используется **Docker Compose**. Убедитесь, что у вас установлены Docker и Docker Compose.
 
-## Contributing
+### Шаги для запуска
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Клонируйте репозиторий**:
+   ```bash
+   git clone https://github.com/livevasiliy/tapir-test-case.git
+   cd tapir-test-case
+   ```
 
-## Code of Conduct
+2. **Создайте файл `.env`**:
+   Скопируйте `.env.example` в `.env` и настройте переменные окружения:
+   ```bash
+   cp .env.example .env
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Запустите Docker Compose**:
+   Запустите контейнеры с помощью команды:
+   ```bash
+   docker-compose up -d
+   ```
 
-## Security Vulnerabilities
+   Это запустит следующие сервисы:
+    - `web` (Laravel приложение)
+    - `mysql` (база данных)
+    - `redis` (очереди)
+    - `nginx` (веб-сервер)
+    - `adminer` (для управления базой данных)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Установите зависимости**:
+   Установите PHP-зависимости внутри контейнера:
+   ```bash
+   docker-compose exec web composer install
+   ```
 
-## License
+5. **Выполните миграции**:
+   Запустите миграции для создания таблиц в базе данных:
+   ```bash
+   docker-compose exec web php artisan migrate --seed
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Запустите очереди**:
+   Запустите обработчик очередей для выполнения фоновых задач:
+   ```bash
+   docker-compose exec web php artisan queue:work
+   ```
+
+7. **Откройте приложение**:
+   После успешного запуска откройте приложение в браузере:
+   ```
+   http://localhost
+   ```
+
+   Административная панель будет доступна по адресу:
+   ```
+   http://localhost/admin
+   ```
+
+---
+
+## Доступ к сервисам
+
+- **Приложение**: `http://localhost:8080`
+- **Админка (Orchid)**: `http://localhost:8080/admin`
+- **Adminer**: `http://localhost:8081` (если включен)
+- **Redis**: `redis://localhost:6379`
+- **MySQL**: `mysql://root:password@localhost:3306/tapir_test_case`
+
+---
+
+## Команды для работы с проектом
+
+- **Запуск миграций**:
+  ```bash
+  docker-compose exec web php artisan migrate
+  ```
+
+- **Запуск сидов**:
+  ```bash
+  docker-compose exec web php artisan db:seed
+  ```
+
+- **Очистка кеша**:
+  ```bash
+  docker-compose exec web php artisan cache:clear
+  ```
+
+- **Запуск тестов**:
+  ```bash
+  docker-compose exec web php artisan test
+  ```
+
+- **Остановка контейнеров**:
+  ```bash
+  docker-compose down
+  ```
+
+---
+
+## Структура проекта
+
+- **`app/Models/`**: Модели (например, `Order`, `FailedCrmOrder`).
+- **`app/Jobs/`**: Фоновые задачи (например, `SendOrderToCrmJob`).
+- **`app/Orchid/`**: Экран и настройки административной панели Orchid.
+- **`database/migrations/`**: Миграции базы данных.
+- **`routes/`**: Маршруты приложения.
+- **`tests/`**: Тесты.
+
+---
+
+## Лицензия
+
+Этот проект распространяется под лицензией MIT. См. файл [LICENSE](LICENSE) для подробностей.
+
+---
+
+## Автор
+
+Василий Пивоваров  
+[livevasiliy@yandex.ru](mailto:livevasiliy@yandex.ru)  
+[https://github.com/livevasiliy/](https://github.com/livevasiliy/)
+
+---
+
+## Благодарности
+
+- [Laravel](https://laravel.com) за отличный фреймворк.
+- [Orchid](https://orchid.software) за удобную административную панель.
+- [Docker](https://docker.com) за простую контейнеризацию.
+
+---
+
+Если у вас есть вопросы или предложения, создайте issue или свяжитесь со мной. 😊

@@ -14,11 +14,11 @@ class FailedCrmOrder extends Model
 
     protected $fillable = [
         'order_id',
-        'message'
+        'message',
     ];
 
     protected $with = [
-        'order'
+        'order',
     ];
 
     public function order(): BelongsTo

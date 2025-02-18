@@ -20,6 +20,7 @@ class RunImportVehicleAction
             return new JsonResponse(null, Response::HTTP_OK);
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
+
             return new JsonResponse([
                 'error' => 'Internal server error',
             ], Response::HTTP_INTERNAL_SERVER_ERROR);

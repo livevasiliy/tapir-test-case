@@ -24,6 +24,7 @@ class ImportVehicle extends Command
 
     /**
      * Execute the console command.
+     *
      * @throws Exception
      */
     public function handle(ImportVehicleService $service): void

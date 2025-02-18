@@ -11,7 +11,6 @@ use Orchid\Support\Facades\Layout;
 
 class FailedCrmOrderScreen extends Screen
 {
-
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -26,8 +25,6 @@ class FailedCrmOrderScreen extends Screen
 
     /**
      * The name of the screen displayed in the header.
-     *
-     * @return string|null
      */
     public function name(): ?string
     {
@@ -67,10 +64,10 @@ class FailedCrmOrderScreen extends Screen
                 TD::make('Действия')
                     ->alignRight()
                     ->render(function (FailedCrmOrder $failedOrder) {
-                    return Button::make('Переотправить')
-                        ->method('retrySendOrder', ['id' => $failedOrder->id])
-                        ->icon('refresh');
-                }),
+                        return Button::make('Переотправить')
+                            ->method('retrySendOrder', ['id' => $failedOrder->id])
+                            ->icon('refresh');
+                    }),
             ]),
         ];
     }

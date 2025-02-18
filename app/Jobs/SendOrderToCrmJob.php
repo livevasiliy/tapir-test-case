@@ -18,6 +18,7 @@ class SendOrderToCrmJob implements ShouldQueue
     use Queueable;
 
     private const MAX_TIMEOUT_MINUTES_VALUE = 5;
+
     private const HTTP_TIMEOUT_SECONDS_VALUE = 5;
 
     /**
@@ -53,12 +54,13 @@ class SendOrderToCrmJob implements ShouldQueue
                 if ($response->getStatusCode() === Response::HTTP_OK) {
                     $order->update(['is_sent' => true]);
                     Mail::to(config('mail.from.address'))->send(new NewOrderMail($order));
+
                     return; // Успешная отправка
                 }
             } catch (RequestException $e) {
                 // Логирование ошибки
-                $order->failedOrders()->create(['message' => 'Ошибка отправки в CRM: ' . $e->getMessage()]);
-                Log::error('Ошибка отправки в CRM: ' . $e->getMessage());
+                $order->failedOrders()->create(['message' => 'Ошибка отправки в CRM: '.$e->getMessage()]);
+                Log::error('Ошибка отправки в CRM: '.$e->getMessage());
             } catch (\Exception $exception) {
                 $order->failedOrders()->create(['message' => $exception->getMessage()]);
                 Log::error($exception->getMessage(), $exception->getTrace());

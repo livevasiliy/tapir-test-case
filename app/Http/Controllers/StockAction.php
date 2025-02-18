@@ -18,6 +18,6 @@ class StockAction
                 $request->validated(),
                 $request->integer('per_page', 10)
             )
-        ));
+            ));
     }
 }
